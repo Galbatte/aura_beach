@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #004466;
+    background-color: #ffffff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(255,255,255,0.9);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+header ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: #004466;
+    font-weight: 600;
+}
+
+.hero {
+    height: 100vh;
+    background: url('hero.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3em;
+}
+
+.btn-primary {
+    background: #00bfff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.drinkonboat {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px;
+    background: #f0faff;
+    gap: 30px;
+    align-items: center;
+}
+
+.drinkonboat img {
+    max-width: 300px;
+    border-radius: 15px;
+}
+
+.spiaggia {
+    padding: 50px;
+    text-align: center;
+}
+
+.griglia-ombrelloni .fila {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.ombrellone {
+    width: 50px;
+    height: 50px;
+    background: #00bfff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.ombrellone:hover {
+    background: #0088aa;
+}
+
+.ristorante, .eventi {
+    padding: 50px;
+    text-align: center;
+}
+
+.ristorante img {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.eventi video {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.footer {
+    background: #004466;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
