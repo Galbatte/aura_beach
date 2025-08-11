@@ -1,133 +1,217 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA Beach Luino</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURA Beach - Luino</title>
+
+<style>
+/* ====== CSS STILE GENERALE ====== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #333;
+}
+
+header {
+  background-color: #00aaff;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: #0077aa;
+  padding: 10px 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero {
+  background: url('https://yourimagehero.jpg') no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+}
+
+.hero p {
+  font-size: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #00aaff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background: #008fcc;
+}
+
+.grid-ombrelloni {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.ombrellone {
+  background: #e0f7fa;
+  border: 1px solid #00aaff;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ombrellone.selected {
+  background: #00aaff;
+  color: white;
+}
+
+.drink-section {
+  background: #f5faff;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.drink-section img {
+  max-width: 300px;
+  border-radius: 15px;
+}
+
+.video-section video {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+footer {
+  background: #0077aa;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .grid-ombrelloni {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
+
 </head>
 <body>
 
-<header class="header">
-    <div class="logo"><img src="logo.png" alt="AURA Beach Luino"></div>
-    <nav>
-        <ul>
-            <li><a href="#spiaggia">Spiaggia</a></li>
-            <li><a href="#ristorante">Ristorante</a></li>
-            <li><a href="#eventi">Eventi</a></li>
-            <li><a href="#drinkonboat">DrinkOnBoat</a></li>
-            <li><a href="#contatti">Contatti</a></li>
-        </ul>
-    </nav>
+<header>
+  <h1>AURA Beach - Luino</h1>
+  <p>Ristorante • Lounge Bar • Spiaggia sul Lago Maggiore</p>
 </header>
 
+<nav>
+  <a href="#spiaggia">Spiaggia</a>
+  <a href="#ristorante">Ristorante</a>
+  <a href="#eventi">Eventi</a>
+  <a href="#drinkonboat">DrinkOnBoat</a>
+  <a href="#contatti">Contatti</a>
+</nav>
+
 <section class="hero">
-    <div class="hero-content">
-        <h1>AURA Beach Luino</h1>
-        <p>Lounge Bar • Ristorante • Spiaggia sul Lago Maggiore</p>
-        <a href="#spiaggia" class="btn-primary">Prenota ora</a>
-    </div>
+  <h1>Benvenuti ad AURA Beach</h1>
+  <p>Goditi il sole, il lago e il gusto</p>
+  <a class="btn" href="#spiaggia">Prenota ora</a>
 </section>
 
-<section id="drinkonboat" class="drinkonboat">
-    <div class="drinkonboat-text">
-        <h2>DrinkOnBoat</h2>
-        <p>Una bottiglia di Prosecco fresca e 4 calici infrangibili, nella nostra bag termica. <strong>Solo 35 €.</strong></p>
-        <form>
-            <label for="orario">Orario di ritiro</label>
-            <input type="time" id="orario" required>
-            <button type="submit" class="btn-primary">Prenota ora</button>
-        </form>
-    </div>
-    <div class="drinkonboat-img">
-        <img src="drinkonboat.jpg" alt="DrinkOnBoat AURA Beach">
-    </div>
+<!-- DRINKONBOAT -->
+<section id="drinkonboat" class="drink-section">
+  <h2>DrinkOnBoat</h2>
+  <p>Una bottiglia di Prosecco fresca e 4 calici infrangibili, nella nostra bag termica. Solo 35 €.</p>
+  <img src="https://via.placeholder.com/300x300.png?text=DrinkOnBoat+Bag+con+Logo" alt="DrinkOnBoat Bag">
+  <br><br>
+  <button class="btn">Prenota ora</button>
 </section>
 
-<section id="spiaggia" class="spiaggia">
-    <h2>La nostra spiaggia</h2>
-    <p>Ombrelloni fronte lago, lettini confortevoli e vista unica sul Lago Maggiore.</p>
-    <div class="griglia-ombrelloni">
-        <!-- 2 file da 8 ombrelloni -->
-        <div class="fila">
-            <div class="ombrellone" data-num="1">1</div>
-            <div class="ombrellone" data-num="2">2</div>
-            <div class="ombrellone" data-num="3">3</div>
-            <div class="ombrellone" data-num="4">4</div>
-            <div class="ombrellone" data-num="5">5</div>
-            <div class="ombrellone" data-num="6">6</div>
-            <div class="ombrellone" data-num="7">7</div>
-            <div class="ombrellone" data-num="8">8</div>
-        </div>
-        <div class="fila">
-            <div class="ombrellone" data-num="9">9</div>
-            <div class="ombrellone" data-num="10">10</div>
-            <div class="ombrellone" data-num="11">11</div>
-            <div class="ombrellone" data-num="12">12</div>
-            <div class="ombrellone" data-num="13">13</div>
-            <div class="ombrellone" data-num="14">14</div>
-            <div class="ombrellone" data-num="15">15</div>
-            <div class="ombrellone" data-num="16">16</div>
-        </div>
-    </div>
+<!-- SPIAGGIA -->
+<section id="spiaggia">
+  <h2>Spiaggia & Ombrelloni</h2>
+  <p>Scegli il tuo ombrellone e prenota!</p>
+  <div class="grid-ombrelloni" id="ombrelloni-grid"></div>
 </section>
 
-<section id="ristorante" class="ristorante">
-    <h2>Ristorante</h2>
-    <img src="ristorante.jpg" alt="Ristorante AURA Beach">
-    <p>Piatti freschi, ingredienti selezionati e vista lago mozzafiato. Perfetto per pranzi e cene indimenticabili.</p>
+<!-- RISTORANTE -->
+<section id="ristorante">
+  <h2>Ristorante & Lounge Bar</h2>
+  <img src="https://www.instagram.com/p/DL2JfuuNp_I/media/?size=l" alt="Ristorante" style="max-width:100%; border-radius:10px;">
 </section>
 
-<section id="eventi" class="eventi">
-    <h2>Eventi</h2>
-    <video autoplay loop muted playsinline>
-        <source src="eventi.mp4" type="video/mp4">
-    </video>
+<!-- SPIAGGIA VIDEO -->
+<section class="video-section">
+  <h2>La nostra spiaggia</h2>
+  <video autoplay muted loop>
+    <source src="https://www.instagram.com/p/DLzmZ25tKYL/?utm_source=ig_web_copy_link" type="video/mp4">
+  </video>
 </section>
 
-<footer id="contatti" class="footer">
-    <h3>Contattaci</h3>
-    <p>Telefono: <a href="tel:+393755875146">+39 375 587 5146</a></p>
-    <p>Email: <a href="mailto:auragroupluino@gmail.com">auragroupluino@gmail.com</a></p>
-    <p>&copy; 2025 AURA Beach Luino</p>
+<!-- EVENTI -->
+<section id="eventi">
+  <h2>Eventi e Feste</h2>
+  <video autoplay muted loop>
+    <source src="https://www.instagram.com/reel/DMsUR-FoJjo/?utm_source=ig_web_copy_link" type="video/mp4">
+  </video>
+</section>
+
+<!-- CONTATTI -->
+<footer id="contatti">
+  <p>📞 +39 375 587 5146 | 📧 auragroupluino@gmail.com</p>
+  <p>&copy; 2025 AURA Beach - Luino</p>
 </footer>
 
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<!-- Script per Ombrelloni -->
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.from(".hero h1", {opacity: 0, y: 50, duration: 1});
-gsap.from(".hero p", {opacity: 0, y: 30, delay: 0.3});
-gsap.from(".hero a", {opacity: 0, y: 20, delay: 0.6});
-
-gsap.from(".drinkonboat-img img", {opacity: 0, x: 100, scrollTrigger: ".drinkonboat"});
-gsap.from(".drinkonboat-text", {opacity: 0, x: -100, scrollTrigger: ".drinkonboat"});
-
-gsap.from(".ombrellone", {
-    opacity: 0, y: 30, duration: 0.3, stagger: 0.05, 
-    scrollTrigger: ".griglia-ombrelloni"
-});
-
-gsap.from(".ristorante img", {opacity: 0, scale: 0.9, scrollTrigger: ".ristorante"});
-gsap.from(".eventi video", {opacity: 0, y: 50, scrollTrigger: ".eventi"});
-gsap.from(".footer", {opacity: 0, y: 30, scrollTrigger: ".footer"});
+const ombrelloniGrid = document.getElementById('ombrelloni-grid');
+for (let i = 1; i <= 16; i++) {
+  const div = document.createElement('div');
+  div.classList.add('ombrellone');
+  div.innerText = i;
+  div.addEventListener('click', () => {
+    div.classList.toggle('selected');
+  });
+  ombrelloniGrid.appendChild(div);
+}
 </script>
 
+<!-- GSAP Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
-// Prenotazione ombrelloni
-document.querySelectorAll(".ombrellone").forEach(o => {
-    o.addEventListener("click", () => {
-        let lettini = prompt(`Ombrellone ${o.dataset.num}: Quanti lettini? (1 o 2)`);
-        if (lettini === "1" || lettini === "2") {
-            alert("Richiesta inviata! Ti daremo risposta a breve della tua prenotazione.");
-        } else {
-            alert("Numero non valido.");
-        }
-    });
-});
+gsap.from(".hero h1", {y: -50, opacity:0, duration: 1});
+gsap.from(".hero p", {y: -30, opacity:0, delay: 0.5, duration: 1});
+gsap.from(".btn", {scale: 0, opacity:0, delay: 1, duration: 0.5});
 </script>
 
 </body>
