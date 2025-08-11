@@ -1,220 +1,385 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AURA Beach - Luino</title>
-
-<style>
-/* ====== CSS STILE GENERALE ====== */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #ffffff;
-  color: #333;
-}
-
-header {
-  background-color: #00aaff;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  background: #0077aa;
-  padding: 10px 0;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-section {
-  padding: 60px 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.hero {
-  background: url('https://yourimagehero.jpg') no-repeat center center/cover;
-  color: white;
-  text-align: center;
-  padding: 120px 20px;
-}
-
-.hero h1 {
-  font-size: 48px;
-}
-
-.hero p {
-  font-size: 20px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #00aaff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-.btn:hover {
-  background: #008fcc;
-}
-
-.grid-ombrelloni {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 10px;
-  max-width: 600px;
-  margin: auto;
-}
-
-.ombrellone {
-  background: #e0f7fa;
-  border: 1px solid #00aaff;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.ombrellone.selected {
-  background: #00aaff;
-  color: white;
-}
-
-.drink-section {
-  background: #f5faff;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.drink-section img {
-  max-width: 300px;
-  border-radius: 15px;
-}
-
-.video-section video {
-  max-width: 100%;
-  border-radius: 10px;
-}
-
-footer {
-  background: #0077aa;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-/* Media Query */
-@media (max-width: 768px) {
-  .grid-ombrelloni {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-</style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AURA Beach – Luino • Restaurant • Lounge • Beach Club</title>
+  <meta name="description" content="Ristorante, Lounge Bar e Spiaggia con lettini sul Lago Maggiore. Prenota lettini, ombrelloni, pranzo, cena ed eventi privati.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --azure:#06b6d4; /* accent */
+      --azure-dark:#0891b2;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',system-ui,ui-sans-serif,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#0f172a;background:#ffffff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:1rem;padding:.6rem 1rem;font-weight:600}
+    .btn-primary{background:var(--azure);color:#fff;box-shadow:0 10px 30px rgba(6,182,212,.25)} .btn-primary:hover{background:var(--azure-dark)}
+    .btn-ghost{background:rgba(2,6,23,.04)} .btn-ghost:hover{background:rgba(2,6,23,.07)}
+    .card{border:1px solid rgba(2,6,23,.06);background:#fff;border-radius:1.25rem}
+    .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--azure),#38bdf8);width:0;z-index:50}
+    .field{background:#f8fafc;border:1px solid #e2e8f0;border-radius:.9rem;padding:.6rem .8rem}
+    .umb{width:52px;height:52px;border-radius:999px;border:2px solid var(--azure);display:flex;align-items:center;justify-content:center;background:#ecfeff;cursor:pointer;user-select:none;transition:.15s;position:relative}
+    .umb:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(6,182,212,.15)}
+    .umb.selected{background:var(--azure);color:#fff}
+    .legend-dot{width:10px;height:10px;border-radius:999px;display:inline-block;margin-right:.4rem}
+    /* Creative beach background */
+    .aura-bg{position:relative;overflow:hidden}
+    .aura-bg::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:60vh;background:radial-gradient(60% 60% at 10% 10%, rgba(14,165,233,.08), transparent 70%), radial-gradient(50% 50% at 90% 20%, rgba(99,102,241,.06), transparent 65%);pointer-events:none}
+    .aura-waves{position:absolute;left:0;right:0;bottom:-1px;pointer-events:none}
+  </style>
 </head>
 <body>
+  <div class="progress" id="progress"></div>
 
-<header>
-  <h1>AURA Beach - Luino</h1>
-  <p>Ristorante • Lounge Bar • Spiaggia sul Lago Maggiore</p>
-</header>
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3">
+        <img src="assets/logo.png" alt="AURA Beach Luino" class="h-12 w-auto">
+        <span class="sr-only">AURA Beach – Luino</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#ombrelloni" class="hover:text-sky-700 text-slate-700 font-medium" data-i18n="nav_umb">Ombrelloni</a>
+        <a href="#ristorante" class="hover:text-sky-700 text-slate-700 font-medium" data-i18n="nav_food">Ristorante</a>
+        <a href="#gallery" class="hover:text-sky-700 text-slate-700 font-medium" data-i18n="nav_gallery">Gallery</a>
+        <a href="#eventi" class="hover:text-sky-700 text-slate-700 font-medium" data-i18n="nav_events">Eventi</a>
+        <a href="#contatti" class="hover:text-sky-700 text-slate-700 font-medium" data-i18n="nav_contact">Contatti</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="#ombrelloni" class="btn btn-primary" data-i18n="cta_book">Prenota</a>
+        <button id="langToggle" class="btn btn-ghost text-xs" aria-label="Language">EN</button>
+      </div>
+    </div>
+  </header>
 
-<nav>
-  <a href="#spiaggia">Spiaggia</a>
-  <a href="#ristorante">Ristorante</a>
-  <a href="#eventi">Eventi</a>
-  <a href="#drinkonboat">DrinkOnBoat</a>
-  <a href="#contatti">Contatti</a>
-</nav>
+  <!-- Hero -->
+  <section id="home" class="aura-bg">
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="inline-flex items-center gap-2 text-sky-700 font-semibold text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M4 8c2-3 6-5 8-5s6 2 8 5M4 16c2 3 6 5 8 5s6-2 8-5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span data-i18n="chip_lake">Lago Maggiore</span>
+        </span>
+        <h1 class="mt-3 text-4xl md:text-5xl font-semibold tracking-tight text-slate-900">
+          AURA Beach <span class="text-sky-600">Luino</span>
+        </h1>
+        <p class="mt-4 text-slate-600 max-w-prose" data-i18n="hero_sub">
+          Ristorante & Lounge Bar con spiaggia attrezzata sul <b>Lago Maggiore</b>. Giornate al sole, <b>lettini e ombrelloni</b>, pinsa e piatti freschi, <b>cocktail</b> al tramonto. Atmosfera beach lounge moderna.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#ombrelloni" class="btn btn-primary" data-i18n="hero_btn1">Prenota lettini</a>
+          <a href="#ristorante" class="btn btn-ghost" data-i18n="hero_btn2">Prenota ristorante</a>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-4 text-xs text-slate-600">
+          <div data-i18n="bullet_1">☀️ Spiaggia 9–21</div>
+          <div data-i18n="bullet_2">🍹 Lounge & Aperitivo</div>
+          <div data-i18n="bullet_3">🎉 Feste private</div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-video w-full rounded-3xl card shadow-xl overflow-hidden">
+          <div class="grid h-full w-full grid-cols-3">
+            <div style="background:url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=1200&auto=format&fit=crop') center/cover"></div>
+            <div style="background:url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1200&auto=format&fit=crop') center/cover"></div>
+            <div style="background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop') center/cover"></div>
+          </div>
+        </div>
+        <p class="mt-2 text-xs text-slate-500" data-i18n="ig_hint">Foto e storie su Instagram: @aura.beach.luino</p>
+      </div>
+    </div>
+    <!-- decorative waves -->
+    <svg class="aura-waves" viewBox="0 0 1440 120" preserveAspectRatio="none" height="120">
+      <path d="M0,40 C200,120 400,0 720,60 C1040,120 1240,40 1440,80 L1440,120 L0,120 Z" fill="#e0f2fe"></path>
+      <path d="M0,70 C220,130 420,10 720,70 C1020,130 1220,50 1440,90 L1440,120 L0,120 Z" fill="#bae6fd" opacity=".6"></path>
+    </svg>
+  </section>
 
-<section class="hero">
-  <h1>Benvenuti ad AURA Beach</h1>
-  <p>Goditi il sole, il lago e il gusto</p>
-  <a class="btn" href="#spiaggia">Prenota ora</a>
-</section>
+  <!-- Ombrelloni (Map + Booking) -->
+  <section id="ombrelloni" class="bg-sky-50/50">
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-semibold tracking-tight text-slate-900" data-i18n="umb_title">Ombrelloni & Lettini</h2>
+        <p class="mt-2 text-slate-600" data-i18n="umb_sub">Scegli il tuo posto: <b>2 file</b> da 8 ombrelloni, fronte lago. Seleziona uno o più ombrelloni e imposta <b>1 o 2 lettini</b> per ciascuno.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <!-- Map -->
+        <div class="card p-6">
+          <div class="flex items-center justify-between text-sm text-slate-500">
+            <div data-i18n="umb_lake">Lago →</div>
+            <div data-i18n="umb_lawn">Prato</div>
+          </div>
+          <div class="mt-4 space-y-6">
+            <div class="grid grid-cols-8 gap-3 justify-items-center" id="rowFront"></div>
+            <div class="grid grid-cols-8 gap-3 justify-items-center" id="rowBack"></div>
+          </div>
+          <div class="mt-6 flex items-center gap-4 text-xs text-slate-600">
+            <span><span class="legend-dot" style="background:#ecfeff;border:2px solid var(--azure);"></span><span data-i18n="legend_free">Libero</span></span>
+            <span><span class="legend-dot" style="background:var(--azure);"></span><span data-i18n="legend_sel">Selezionato</span></span>
+            <span><span class="legend-dot" style="background:#e2e8f0;"></span><span data-i18n="legend_busy">Occupato</span></span>
+          </div>
+        </div>
+        <!-- Booking panel -->
+        <div class="card p-6">
+          <h3 class="text-xl font-semibold" data-i18n="umb_book_title">Prenotazione Ombrelloni</h3>
+          <div class="mt-4 grid gap-4">
+            <div>
+              <label class="text-sm text-slate-600" data-i18n="umb_selected_list">Selezione</label>
+              <div id="selectionList" class="space-y-2"></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div><label class="text-sm text-slate-600" data-i18n="date">Data</label><input type="date" id="dateUmb" class="field w-full" /></div>
+              <div><label class="text-sm text-slate-600" data-i18n="time_from">Dalle</label><input type="time" id="fromUmb" class="field w-full" /></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div><label class="text-sm text-slate-600" data-i18n="time_to">Alle</label><input type="time" id="toUmb" class="field w-full" /></div>
+              <div><label class="text-sm text-slate-600" data-i18n="notes">Note</label><input id="notesUmb" class="field w-full" placeholder="Allergie, richieste…" /></div>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <button type="button" id="waUmb" class="btn btn-primary" data-i18n="book_whatsapp">Prenota su WhatsApp</button>
+              <button type="button" id="mailUmb" class="btn btn-ghost" data-i18n="book_email">Prenota via Email</button>
+            </div>
+            <p class="text-xs text-slate-500" data-i18n="umb_note">I posti occupati non sono selezionabili. La prenotazione è soggetta a conferma.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- DRINKONBOAT -->
-<section id="drinkonboat" class="drink-section">
-  <h2>DrinkOnBoat</h2>
-  <p>Una bottiglia di Prosecco fresca e 4 calici infrangibili, nella nostra bag termica. Solo 35 €.</p>
-  <img src="https://via.placeholder.com/300x300.png?text=DrinkOnBoat+Bag+con+Logo" alt="DrinkOnBoat Bag">
-  <br><br>
-  <button class="btn">Prenota ora</button>
-</section>
+  <!-- Ristorante -->
+  <section id="ristorante">
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-semibold tracking-tight text-slate-900" data-i18n="food_title">Ristorante & Lounge</h2>
+        <p class="mt-2 text-slate-600" data-i18n="food_sub">Pinsa romana, insalate, crudi e grill. Cocktail d'autore e vini del territorio.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <!-- Instagram photo embed -->
+        <div class="card p-2">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DL2JfuuNp_I/" data-instgrm-version="14" style="width:100%;"></blockquote>
+        </div>
+        <form class="card p-6" id="bookRisto">
+          <h3 class="text-xl font-semibold" data-i18n="food_book_title">Prenota Ristorante</h3>
+          <div class="mt-4 grid gap-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div><label class="text-sm text-slate-600" data-i18n="service">Servizio</label>
+                <select id="srv" class="field w-full"><option value="pranzo" data-i18n="lunch">Pranzo</option><option value="cena" data-i18n="dinner">Cena</option></select>
+              </div>
+              <div><label class="text-sm text-slate-600" data-i18n="people">Persone</label><input type="number" id="pax" min="1" class="field w-full" placeholder="2"/></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div><label class="text-sm text-slate-600" data-i18n="date">Data</label><input type="date" id="dateR" class="field w-full"/></div>
+              <div><label class="text-sm text-slate-600" data-i18n="time">Orario</label><input type="time" id="timeR" class="field w-full"/></div>
+            </div>
+            <div><label class="text-sm text-slate-600" data-i18n="notes">Note</label><textarea id="notesR" rows="3" class="field w-full" placeholder="Allergie, preferenze…"></textarea></div>
+            <div class="flex flex-wrap gap-3">
+              <button type="button" id="waR" class="btn btn-primary" data-i18n="book_whatsapp">WhatsApp</button>
+              <button type="button" id="mailR" class="btn btn-ghost" data-i18n="book_email">Email</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
 
-<!-- SPIAGGIA -->
-<section id="spiaggia">
-  <h2>Spiaggia & Ombrelloni</h2>
-  <p>Scegli il tuo ombrellone e prenota!</p>
-  <div class="grid-ombrelloni" id="ombrelloni-grid"></div>
-</section>
+  <!-- Spiaggia: Instagram video -->
+  <section id="gallery" class="bg-sky-50/50">
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-semibold tracking-tight text-slate-900" data-i18n="gallery_title">Spiaggia & Gallery</h2>
+        <p class="mt-2 text-slate-600" data-i18n="gallery_sub">Scatti e clip dal nostro Instagram. Per un loop continuo, possiamo ospitare il video in locale (MP4) con autoplay/muted.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Instagram video embed for beach -->
+        <div class="card p-2">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DLzmZ25tKYL/" data-instgrm-version="14" style="width:100%;"></blockquote>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1511910849309-0dffb6ed5dcd?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Beach vibe"></div>
+          <div class="rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Food & pinsa"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- RISTORANTE -->
-<section id="ristorante">
-  <h2>Ristorante & Lounge Bar</h2>
-  <img src="https://www.instagram.com/p/DL2JfuuNp_I/media/?size=l" alt="Ristorante" style="max-width:100%; border-radius:10px;">
-</section>
+  <!-- Eventi: Instagram reel -->
+  <section id="eventi">
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-semibold tracking-tight text-slate-900" data-i18n="events_title">Eventi & Feste private</h2>
+        <p class="mt-2 text-slate-600" data-i18n="events_sub">Compleanni, cene aziendali, beach party con DJ. Possibilità di aree riservate e photo corner.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="card p-2">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMsUR-FoJjo/" data-instgrm-version="14" style="width:100%;"></blockquote>
+        </div>
+        <div class="card p-6 md:p-8">
+          <ul class="grid gap-3 list-disc list-inside text-sm text-slate-700">
+            <li data-i18n="ev_b1">Allestimenti estivi & light design</li>
+            <li data-i18n="ev_b2">Menu personalizzati</li>
+            <li data-i18n="ev_b3">Service audio per DJ</li>
+            <li data-i18n="ev_b4">Arrivo in barca su richiesta</li>
+          </ul>
+          <div class="mt-6"><a href="#ristorante" class="btn btn-primary" data-i18n="ev_btn">Richiedi un preventivo</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- SPIAGGIA VIDEO -->
-<section class="video-section">
-  <h2>La nostra spiaggia</h2>
-  <video autoplay muted loop>
-    <source src="https://www.instagram.com/p/DLzmZ25tKYL/?utm_source=ig_web_copy_link" type="video/mp4">
-  </video>
-</section>
+  <!-- Contatti -->
+  <section id="contatti" class="bg-sky-50/50">
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="text-3xl font-semibold tracking-tight text-slate-900" data-i18n="contact_title">Contatti</h2>
+          <p class="mt-2 text-slate-600" data-i18n="contact_sub">Siamo a Luino, direttamente sul Lago Maggiore.</p>
+          <div class="mt-6 space-y-3 text-slate-700">
+            <p>📍 Via della Vittoria, Luino (VA) – Lago Maggiore</p>
+            <p>📞 <span id="phone">+39 000 000 0000</span></p>
+            <p>✉️ <span id="email">booking@aurabeach.it</span></p>
+            <p>📸 Instagram: <a class="underline text-sky-700" href="https://instagram.com/aura.beach.luino" target="_blank">@aura.beach.luino</a></p>
+          </div>
+        </div>
+        <div class="card overflow-hidden">
+          <iframe class="w-full aspect-video" src="https://www.google.com/maps?q=Luino%2C%20Via%20della%20Vittoria&output=embed" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- EVENTI -->
-<section id="eventi">
-  <h2>Eventi e Feste</h2>
-  <video autoplay muted loop>
-    <source src="https://www.instagram.com/reel/DMsUR-FoJjo/?utm_source=ig_web_copy_link" type="video/mp4">
-  </video>
-</section>
+  <footer class="border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© <span id="year"></span> AURA Beach – Luino. <span data-i18n="rights">Tutti i diritti riservati.</span></p>
+      <a href="#home" class="hover:text-slate-900">↑ Top</a>
+    </div>
+  </footer>
 
-<!-- CONTATTI -->
-<footer id="contatti">
-  <p>📞 +39 375 587 5146 | 📧 auragroupluino@gmail.com</p>
-  <p>&copy; 2025 AURA Beach - Luino</p>
-</footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', ()=>{ const s=window.scrollY; const h=document.body.scrollHeight - window.innerHeight; progress.style.width=(s/h)*100+'%'; });
 
-<!-- Script per Ombrelloni -->
-<script>
-const ombrelloniGrid = document.getElementById('ombrelloni-grid');
-for (let i = 1; i <= 16; i++) {
-  const div = document.createElement('div');
-  div.classList.add('ombrellone');
-  div.innerText = i;
-  div.addEventListener('click', () => {
-    div.classList.toggle('selected');
-  });
-  ombrelloniGrid.appendChild(div);
-}
-</script>
+    // Umbrella state: F1-8 front, B1-8 back
+    const front = Array.from({length:8}, (_,i)=>({id:`F${i+1}`, status:'free', beds:2}));
+    const back = Array.from({length:8}, (_,i)=>({id:`B${i+1}`, status:'free', beds:2}));
+    front[2].status='busy'; back[5].status='busy'; // demo occupied
 
-<!-- GSAP Animations -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script>
-gsap.from(".hero h1", {y: -50, opacity:0, duration: 1});
-gsap.from(".hero p", {y: -30, opacity:0, delay: 0.5, duration: 1});
-gsap.from(".btn", {scale: 0, opacity:0, delay: 1, duration: 0.5});
-</script>
+    const selected = new Map(); // id -> {id, beds}
+    const rowFront=document.getElementById('rowFront'); const rowBack=document.getElementById('rowBack');
+    function renderRow(el,row){
+      el.innerHTML='';
+      row.forEach(slot=>{
+        const b=document.createElement('button'); b.className='umb'; b.textContent=slot.id.replace('F','').replace('B','');
+        if(slot.status==='busy'){ b.style.background='#e2e8f0'; b.style.borderColor='#cbd5e1'; b.disabled=true; b.title='Occupato'; }
+        b.addEventListener('click',()=>toggleSelect(slot,b));
+        el.appendChild(b); slot._btn=b;
+      });
+    }
+    renderRow(rowFront, front); renderRow(rowBack, back);
 
+    const list = document.getElementById('selectionList');
+    function toggleSelect(slot, btn){
+      if(selected.has(slot.id)){ selected.delete(slot.id); btn.classList.remove('selected'); }
+      else { selected.set(slot.id, {id:slot.id, beds:2}); btn.classList.add('selected'); }
+      refreshSelection();
+    }
+    function refreshSelection(){
+      list.innerHTML = '';
+      if(selected.size===0){ list.innerHTML = '<div class="text-sm text-slate-500" data-i18n="umb_none">Nessun ombrellone selezionato</div>'; return; }
+      selected.forEach((item)=>{
+        const row=document.createElement('div'); row.className='flex items-center justify-between gap-3';
+        const label=document.createElement('div'); label.className='text-sm font-medium text-slate-700'; label.textContent = item.id + (item.id.startsWith('F')?' (fronte lago)':' (seconda fila)');
+        const sel=document.createElement('select'); sel.className='field'; sel.innerHTML='<option value="1">1 lettino</option><option value="2" selected>2 lettini</option>';
+        sel.value = String(item.beds);
+        sel.addEventListener('change',()=>{ item.beds = parseInt(sel.value,10); selected.set(item.id, item); });
+        row.appendChild(label); row.appendChild(sel); list.appendChild(row);
+      });
+    }
+    refreshSelection();
+
+    function payloadUmb(){
+      const d=document.getElementById('dateUmb').value; const f=document.getElementById('fromUmb').value; const t=document.getElementById('toUmb').value; const n=document.getElementById('notesUmb').value;
+      const items = Array.from(selected.values());
+      return {d,f,t,n,items};
+    }
+    const phone = (document.getElementById('phone').textContent || '').trim() || '+390000000000';
+    const email = (document.getElementById('email').textContent || '').trim() || 'booking@example.com';
+
+    document.getElementById('waUmb').addEventListener('click',()=>{
+      const {d,f,t,n,items}=payloadUmb(); if(items.length===0){ alert('Seleziona almeno un ombrellone'); return; }
+      const rows = items.map(it=>`${it.id} – ${it.beds} lettini`).join('\\n');
+      const msg = encodeURIComponent(`Prenotazione Ombrelloni\\n${rows}\\nData: ${d}\\nOrario: ${f}-${t}\\nNote: ${n}`);
+      window.open(`https://wa.me/${phone.replace(/[^0-9]/g,'')}?text=${msg}`,'_blank');
+    });
+    document.getElementById('mailUmb').addEventListener('click',()=>{
+      const {d,f,t,n,items}=payloadUmb(); if(items.length===0){ alert('Seleziona almeno un ombrellone'); return; }
+      const rows = items.map(it=>`${it.id} – ${it.beds} lettini`).join('%0A');
+      const subject = encodeURIComponent('Prenotazione Ombrelloni');
+      const body = `Ombrelloni:%0A${rows}%0AData: ${encodeURIComponent(d)}%0AOrario: ${encodeURIComponent(f+'-'+t)}%0ANote: ${encodeURIComponent(n)}`;
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    });
+
+    // Restaurant booking
+    function payloadR(){ const s=document.getElementById('srv').value; const p=document.getElementById('pax').value; const d=document.getElementById('dateR').value; const t=document.getElementById('timeR').value; const n=document.getElementById('notesR').value; return {s,p,d,t,n}; }
+    document.getElementById('waR').addEventListener('click',()=>{ const {s,p,d,t,n}=payloadR(); const msg=encodeURIComponent(`Prenotazione Ristorante\\nServizio: ${s}\\nPersone: ${p}\\nData: ${d}\\nOrario: ${t}\\nNote: ${n}`); window.open(`https://wa.me/${phone.replace(/[^0-9]/g,'')}?text=${msg}`,'_blank'); });
+    document.getElementById('mailR').addEventListener('click',()=>{ const {s,p,d,t,n}=payloadR(); const subject=encodeURIComponent('Prenotazione Ristorante'); const body=encodeURIComponent(`Servizio: ${s}\\nPersone: ${p}\\nData: ${d}\\nOrario: ${t}\\nNote: ${n}`); window.location.href=`mailto:${email}?subject=${subject}&body=${body}`; });
+
+    // GSAP reveal
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.card').forEach(el=>{ gsap.from(el,{opacity:0,y:20,duration:.7,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 85%'}}); });
+
+    // i18n (full)
+    const i18n = {
+      it: {
+        nav_umb:"Ombrelloni", nav_food:"Ristorante", nav_gallery:"Gallery", nav_events:"Eventi", nav_contact:"Contatti",
+        cta_book:"Prenota", chip_lake:"Lago Maggiore", hero_sub:"Ristorante & Lounge Bar con spiaggia attrezzata sul <b>Lago Maggiore</b>. Giornate al sole, <b>lettini e ombrelloni</b>, pinsa e piatti freschi, <b>cocktail</b> al tramonto. Atmosfera beach lounge moderna.",
+        hero_btn1:"Prenota lettini", hero_btn2:"Prenota ristorante", bullet_1:"☀️ Spiaggia 9–21", bullet_2:"🍹 Lounge & Aperitivo", bullet_3:"🎉 Feste private", ig_hint:"Foto e storie su Instagram: @aura.beach.luino",
+        umb_title:"Ombrelloni & Lettini", umb_sub:"Scegli il tuo posto: <b>2 file</b> da 8 ombrelloni, fronte lago. Seleziona uno o più ombrelloni e imposta <b>1 o 2 lettini</b> per ciascuno.",
+        umb_lake:"Lago →", umb_lawn:"Prato", legend_free:"Libero", legend_sel:"Selezionato", legend_busy:"Occupato",
+        umb_book_title:"Prenotazione Ombrelloni", umb_selected_list:"Selezione", umb_none:"Nessun ombrellone selezionato",
+        date:"Data", time_from:"Dalle", time_to:"Alle", time:"Orario", notes:"Note",
+        book_whatsapp:"Prenota su WhatsApp", book_email:"Prenota via Email", umb_note:"I posti occupati non sono selezionabili. La prenotazione è soggetta a conferma.",
+        food_title:"Ristorante & Lounge", food_sub:"Pinsa romana, insalate, crudi e grill. Cocktail d'autore e vini del territorio.", food_book_title:"Prenota Ristorante", service:"Servizio", lunch:"Pranzo", dinner:"Cena", people:"Persone",
+        gallery_title:"Spiaggia & Gallery", gallery_sub:"Scatti e clip dal nostro Instagram. Per un loop continuo, possiamo ospitare il video in locale (MP4) con autoplay/muted.",
+        events_title:"Eventi & Feste private", events_sub:"Compleanni, cene aziendali, beach party con DJ. Possibilità di aree riservate e photo corner.",
+        ev_b1:"Allestimenti estivi & light design", ev_b2:"Menu personalizzati", ev_b3:"Service audio per DJ", ev_b4:"Arrivo in barca su richiesta", ev_btn:"Richiedi un preventivo",
+        contact_title:"Contatti", contact_sub:"Siamo a Luino, direttamente sul Lago Maggiore.", rights:"Tutti i diritti riservati."
+      },
+      en: {
+        nav_umb:"Parasols", nav_food:"Restaurant", nav_gallery:"Gallery", nav_events:"Events", nav_contact:"Contact",
+        cta_book:"Book", chip_lake:"Lake Maggiore", hero_sub:"Restaurant & Lounge Bar with an equipped beach on <b>Lake Maggiore</b>. Sunny days, <b>sunbeds & parasols</b>, fresh dishes and <b>cocktails</b> at sunset. A modern beach-lounge vibe.",
+        hero_btn1:"Book sunbeds", hero_btn2:"Book restaurant", bullet_1:"☀️ Beach 9–21", bullet_2:"🍹 Lounge & Aperitif", bullet_3:"🎉 Private parties", ig_hint:"See our stories on Instagram: @aura.beach.luino",
+        umb_title:"Parasols & Sunbeds", umb_sub:"Pick your spot: <b>2 rows</b> of 8 parasols facing the lake. Select one or more parasols and set <b>1 or 2 sunbeds</b> for each.",
+        umb_lake:"Lake →", umb_lawn:"Lawn", legend_free:"Free", legend_sel:"Selected", legend_busy:"Busy",
+        umb_book_title:"Parasols Booking", umb_selected_list:"Selection", umb_none:"No parasols selected",
+        date:"Date", time_from:"From", time_to:"To", time:"Time", notes:"Notes",
+        book_whatsapp:"Book via WhatsApp", book_email:"Book via Email", umb_note:"Busy spots cannot be selected. Booking is subject to confirmation.",
+        food_title:"Restaurant & Lounge", food_sub:"Roman pinsa, salads, raw & grill. Signature cocktails and local wines.", food_book_title:"Book Restaurant", service:"Service", lunch:"Lunch", dinner:"Dinner", people:"People",
+        gallery_title:"Beach & Gallery", gallery_sub:"Shots and clips from our Instagram. For a continuous loop, we can self-host the MP4 with autoplay/muted.",
+        events_title:"Events & Private Parties", events_sub:"Birthdays, corporate dinners, beach parties with DJ. Exclusive areas and photo corner on request.",
+        ev_b1:"Summer setups & lighting", ev_b2:"Custom menus", ev_b3:"DJ audio service", ev_b4:"Boat arrival on request", ev_btn:"Request a quote",
+        contact_title:"Contact", contact_sub:"We’re in Luino, right on Lake Maggiore.", rights:"All rights reserved."
+      }
+    };
+    function applyLang(lang){
+      document.documentElement.lang = lang==='en'?'en':'it';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k=el.getAttribute('data-i18n'); const v=i18n[lang][k];
+        if(v!==undefined){ el.innerHTML = v; }
+      });
+      document.getElementById('langToggle').textContent = lang==='en' ? 'IT' : 'EN';
+      localStorage.setItem('aura_lang3', lang);
+    }
+    const saved = localStorage.getItem('aura_lang3') || 'it'; applyLang(saved);
+    document.getElementById('langToggle').addEventListener('click', ()=>{
+      const curr = localStorage.getItem('aura_lang3') || 'it';
+      applyLang(curr==='it'?'en':'it');
+      if(window.instgrm) window.instgrm.Embeds.process(); // refresh embeds if needed
+    });
+  </script>
 </body>
 </html>
-
-
