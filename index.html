@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AURA Beach – Luino • Restaurant • Lounge • Beach Club</title>
+  <meta name="description" content="Ristorante, Lounge Bar e Spiaggia con lettini sul Lago Maggiore. Prenota lettini, ombrelloni, pranzo, cena ed eventi privati.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',system-ui,ui-sans-serif,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    .glass{backdrop-filter:blur(10px);background:rgba(2,6,23,.55)}
+    .card{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
+    .hero-grad{background:radial-gradient(900px 500px at 50% 20%, rgba(56,189,248,.16), rgba(250,204,21,.14) 30%, transparent 60%), linear-gradient(#020617, #0b1220 55%, #020617)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:1rem;padding:.6rem 1rem;font-weight:600}
+    .btn-primary{background:#06b6d4;box-shadow:0 10px 30px rgba(6,182,212,.25)} .btn-primary:hover{background:#0891b2}
+    .btn-ghost{background:rgba(255,255,255,.08)} .btn-ghost:hover{background:rgba(255,255,255,.12)}
+    .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#22d3ee,#fde047);width:0;z-index:50}
+    .field{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:.9rem;padding:.6rem .8rem}
+  </style>
+</head>
+<body class="text-white bg-slate-950 hero-grad">
+  <div class="progress" id="progress"></div>
+  <header class="sticky top-0 z-40 glass border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3">
+        <img src="assets/logo.png" alt="AURA Beach Luino" class="h-12 w-auto">
+        <span class="sr-only">AURA Beach – Luino</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#ristorante" class="hover:text-white text-white/80" data-i18n="nav_food">Ristorante</a>
+        <a href="#spiaggia" class="hover:text-white text-white/80" data-i18n="nav_beach">Spiaggia</a>
+        <a href="#prenota" class="hover:text-white text-white/80" data-i18n="nav_book">Prenota</a>
+        <a href="#eventi" class="hover:text-white text-white/80" data-i18n="nav_events">Eventi</a>
+        <a href="#contatti" class="hover:text-white text-white/80" data-i18n="nav_contact">Contatti</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="#prenota" class="btn btn-primary" data-i18n="cta_book">Prenota ora</a>
+        <button id="langToggle" class="btn btn-ghost text-xs" aria-label="Language">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <section id="home" class="relative overflow-hidden">
+    <div class="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-cyan-400/25 blur-3xl"></div>
+    <div class="absolute -bottom-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-yellow-300/25 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-semibold tracking-tight">
+          <span data-i18n="hero_1">Lago Maggiore,</span> <span class="text-cyan-300" data-i18n="hero_2">sapori d'estate</span>
+        </h1>
+        <p class="mt-4 text-white/80 max-w-prose" data-i18n="hero_sub">
+          AURA Beach è ristorante, lounge bar e spiaggia attrezzata a <b>Luino</b>. Pinsa croccante, piatti freschi, cocktail vista lago e lettini all’ombra degli ombrelloni. Vivi il tramonto sul Lago Maggiore, tra relax e musica.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#prenota" class="btn btn-primary" data-i18n="hero_btn1">Prenota lettini o tavolo</a>
+          <a href="#ristorante" class="btn btn-ghost" data-i18n="hero_btn2">Scopri il menù</a>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-4 text-xs text-white/70">
+          <div>☀️ <span data-i18n="bullet_1">Spiaggia attrezzata (9–21)</span></div>
+          <div>🍽️ <span data-i18n="bullet_2">Pranzo • Aperitivo • Cena</span></div>
+          <div>🎉 <span data-i18n="bullet_3">Eventi e feste private</span></div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-video w-full rounded-3xl card shadow-2xl overflow-hidden">
+          <div class="grid h-full w-full grid-cols-3">
+            <div style="background:url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=1200&auto=format&fit=crop') center/cover"></div>
+            <div style="background:url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1200&auto=format&fit=crop') center/cover"></div>
+            <div style="background:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop') center/cover"></div>
+          </div>
+        </div>
+        <p class="mt-2 text-xs text-white/50" data-i18n="ig_hint">Guarda le foto su Instagram: @aura.beach.luino</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="ristorante" class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+    <div class="mb-8">
+      <h2 class="text-3xl font-semibold tracking-tight" data-i18n="food_title">Ristorante & Lounge</h2>
+      <p class="mt-2 text-white/70" data-i18n="food_sub">Cucina mediterranea leggera, pinsa romana, insalate, crudi e grill. Cocktail signature e vini del territorio.</p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="rounded-3xl card p-6 shadow-xl"><h3 class="text-lg font-semibold" data-i18n="food_box1">Pinsa & piatti del giorno</h3><p class="mt-2 text-sm text-white/70" data-i18n="food_box1sub">Impasto leggero, farciture di stagione e proposte dello chef.</p></div>
+      <div class="rounded-3xl card p-6 shadow-xl"><h3 class="text-lg font-semibold" data-i18n="food_box2">Aperitivo sul lago</h3><p class="mt-2 text-sm text-white/70" data-i18n="food_box2sub">Spritz, signature e tapas al tramonto.</p></div>
+      <div class="rounded-3xl card p-6 shadow-xl"><h3 class="text-lg font-semibold" data-i18n="food_box3">Cena vista tramonto</h3><p class="mt-2 text-sm text-white/70" data-i18n="food_box3sub">Atmosfera soft, luci, musica e vista sul Golfo di Luino.</p></div>
+    </div>
+  </section>
+
+  <section id="spiaggia" class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+    <div class="mb-8">
+      <h2 class="text-3xl font-semibold tracking-tight" data-i18n="beach_title">Spiaggia & Relax</h2>
+      <p class="mt-2 text-white/70" data-i18n="beach_sub">Lettini, ombrelloni, prato curato e acqua del Lago Maggiore. Servizio bar dedicato e doccia.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="rounded-3xl card overflow-hidden"><div class="aspect-[4/3]" style="background:url('https://images.unsplash.com/photo-1551888419-7b7a520fe0ca?q=80&w=1200&auto=format&fit=crop') center/cover"></div></div>
+      <div class="rounded-3xl card overflow-hidden"><div class="aspect-[4/3]" style="background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop') center/cover"></div></div>
+    </div>
+    <div class="mt-6"><a href="#prenota" class="btn btn-primary" data-i18n="beach_btn">Prenota lettini e ombrellone</a></div>
+  </section>
+
+  <section id="prenota" class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+    <div class="mb-8">
+      <h2 class="text-3xl font-semibold tracking-tight" data-i18n="book_title">Prenota</h2>
+      <p class="mt-2 text-white/70" data-i18n="book_sub">Scegli cosa prenotare: lettini, ombrellone, tavolo per pranzo o cena, festa privata/di compleanno.</p>
+    </div>
+    <form id="bookingForm" class="grid gap-4 md:grid-cols-2">
+      <div><label class="text-sm text-white/80" data-i18n="book_type">Tipologia</label>
+        <select class="field w-full" id="type">
+          <option value="lettini" data-i18n="type_sunbeds">Lettini / Ombrellone</option>
+          <option value="pranzo" data-i18n="type_lunch">Pranzo</option>
+          <option value="cena" data-i18n="type_dinner">Cena</option>
+          <option value="festa" data-i18n="type_party">Festa privata / Compleanno</option>
+        </select>
+      </div>
+      <div><label class="text-sm text-white/80" data-i18n="book_date">Data</label><input type="date" class="field w-full" id="date" /></div>
+      <div><label class="text-sm text-white/80" data-i18n="book_people">Persone</label><input type="number" min="1" class="field w-full" id="people" placeholder="2" /></div>
+      <div><label class="text-sm text-white/80" data-i18n="book_time">Orario</label><input type="time" class="field w-full" id="time" /></div>
+      <div class="md:col-span-2"><label class="text-sm text-white/80" data-i18n="book_notes">Note</label><textarea rows="3" class="field w-full" id="notes" placeholder="Richieste particolari, preferenze, allergie…"></textarea></div>
+      <div class="md:col-span-2 flex flex-wrap gap-3">
+        <button type="button" id="sendWhatsApp" class="btn btn-primary">WhatsApp</button>
+        <button type="button" id="sendEmail" class="btn btn-ghost">Email</button>
+      </div>
+      <p class="text-xs text-white/50 md:col-span-2" data-i18n="book_privacy">Prenotando accetti la nostra privacy policy. Riceverai conferma in base alla disponibilità.</p>
+    </form>
+  </section>
+
+  <section id="eventi" class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+    <div class="mb-8">
+      <h2 class="text-3xl font-semibold tracking-tight" data-i18n="events_title">Eventi & Feste private</h2>
+      <p class="mt-2 text-white/70" data-i18n="events_sub">Compleanni, cene aziendali, beach party con DJ e servizio fotografico. Possibilità di riservare aree esclusive.</p>
+    </div>
+    <div class="rounded-3xl card p-6 md:p-8 text-white/85">
+      <ul class="grid md:grid-cols-2 gap-3 list-disc list-inside text-sm">
+        <li data-i18n="events_b1">Allestimenti estivi e light design</li>
+        <li data-i18n="events_b2">Menu personalizzati e torta</li>
+        <li data-i18n="events_b3">Service audio per DJ e live</li>
+        <li data-i18n="events_b4">Boat arrival su richiesta</li>
+      </ul>
+      <div class="mt-6"><a href="#prenota" class="btn btn-primary" data-i18n="events_btn">Richiedi un preventivo</a></div>
+    </div>
+  </section>
+
+  <section id="contatti" class="max-w-7xl mx-auto px-4 py-16 md:py-24">
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+      <div>
+        <h2 class="text-3xl font-semibold tracking-tight" data-i18n="contact_title">Contatti</h2>
+        <p class="mt-2 text-white/70" data-i18n="contact_sub">Siamo a Luino, direttamente sul Lago Maggiore. Ti aspettiamo per colazioni, pranzi, aperitivi e cene.</p>
+        <div class="mt-6 space-y-3 text-white/80">
+          <p>📍 Via della Vittoria, Luino (VA) – Lago Maggiore</p>
+          <p>📞 <span id="phone">+39 000 000 0000</span></p>
+          <p>✉️ <span id="email">booking@aurabeach.it</span></p>
+          <p>📸 Instagram: <a class="underline" href="https://instagram.com/aura.beach.luino" target="_blank">@aura.beach.luino</a></p>
+        </div>
+      </div>
+      <div class="rounded-3xl card overflow-hidden">
+        <iframe class="w-full aspect-video" src="https://www.google.com/maps?q=Luino%2C%20Via%20della%20Vittoria&output=embed" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-white/60 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© <span id="year"></span> AURA Beach – Luino. <span data-i18n="rights">Tutti i diritti riservati.</span></p>
+      <a href="#home" class="hover:text-white">↑ Top</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => { const s=window.scrollY; const h=document.body.scrollHeight - window.innerHeight; progress.style.width = (s/h)*100 + '%'; });
+
+    const dict = {
+      it:{nav_food:"Ristorante",nav_beach:"Spiaggia",nav_book:"Prenota",nav_events:"Eventi",nav_contact:"Contatti",cta_book:"Prenota ora",hero_1:"Lago Maggiore,",hero_2:"sapori d'estate",hero_sub:"AURA Beach è ristorante, lounge bar e spiaggia attrezzata a <b>Luino</b>. Pinsa croccante, piatti freschi, cocktail vista lago e lettini all’ombra degli ombrelloni. Vivi il tramonto sul Lago Maggiore, tra relax e musica.",hero_btn1:"Prenota lettini o tavolo",hero_btn2:"Scopri il menù",bullet_1:"Spiaggia attrezzata (9–21)",bullet_2:"Pranzo • Aperitivo • Cena",bullet_3:"Eventi e feste private",ig_hint:"Guarda le foto su Instagram: @aura.beach.luino",food_title:"Ristorante & Lounge",food_sub:"Cucina mediterranea leggera, pinsa romana, insalate, crudi e grill. Cocktail signature e vini del territorio.",food_box1:"Pinsa & piatti del giorno",food_box1sub:"Impasto leggero, farciture di stagione e proposte dello chef.",food_box2:"Aperitivo sul lago",food_box2sub:"Spritz, signature e tapas al tramonto.",food_box3:"Cena vista tramonto",food_box3sub:"Atmosfera soft, luci, musica e vista sul Golfo di Luino.",beach_title:"Spiaggia & Relax",beach_sub:"Lettini, ombrelloni, prato curato e acqua del Lago Maggiore. Servizio bar dedicato e doccia.",beach_btn:"Prenota lettini e ombrellone",book_title:"Prenota",book_sub:"Scegli cosa prenotare: lettini, ombrellone, tavolo per pranzo o cena, festa privata/di compleanno.",book_type:"Tipologia",type_sunbeds:"Lettini / Ombrellone",type_lunch:"Pranzo",type_dinner:"Cena",type_party:"Festa privata / Compleanno",book_date:"Data",book_people:"Persone",book_time:"Orario",book_notes:"Note",book_privacy:"Prenotando accetti la nostra privacy policy. Riceverai conferma in base alla disponibilità.",events_title:"Eventi & Feste private",events_sub:"Compleanni, cene aziendali, beach party con DJ e servizio fotografico. Possibilità di riservare aree esclusive.",events_b1:"Allestimenti estivi e light design",events_b2:"Menu personalizzati e torta",events_b3:"Service audio per DJ e live",events_b4:"Boat arrival su richiesta",events_btn:"Richiedi un preventivo",contact_title:"Contatti",contact_sub:"Siamo a Luino, direttamente sul Lago Maggiore. Ti aspettiamo per colazioni, pranzi, aperitivi e cene.",rights:"Tutti i diritti riservati."},
+      en:{nav_food:"Restaurant",nav_beach:"Beach",nav_book:"Book",nav_events:"Events",nav_contact:"Contact",cta_book:"Book now",hero_1:"Lake Maggiore,",hero_2:"summer flavours",hero_sub:"AURA Beach is a restaurant, lounge bar and equipped beach in <b>Luino</b>. Roman-style pinsa, fresh dishes, lake-view cocktails and sunbeds under the umbrellas. Enjoy the sunset on Lake Maggiore with music and relax.",hero_btn1:"Book sunbeds or table",hero_btn2:"See the menu",bullet_1:"Equipped beach (9–21)",bullet_2:"Lunch • Aperitif • Dinner",bullet_3:"Events & private parties",ig_hint:"See photos on Instagram: @aura.beach.luino",food_title:"Restaurant & Lounge",food_sub:"Light Mediterranean cuisine, Roman pinsa, salads, raw & grill. Signature cocktails and local wines.",food_box1:"Pinsa & daily specials",food_box1sub:"Light dough, seasonal toppings and chef's specials.",food_box2:"Lakeside aperitif",food_box2sub:"Spritz, signatures and tapas at sunset.",food_box3:"Dinner at sunset",food_box3sub:"Soft atmosphere, lighting, music and views over Luino Bay.",beach_title:"Beach & Relax",beach_sub:"Sunbeds, umbrellas, lawn and Lake Maggiore water. Dedicated bar service and shower.",beach_btn:"Book sunbeds & umbrella",book_title:"Book",book_sub:"Choose what to book: sunbeds, umbrella, lunch or dinner table, private/birthday party.",book_type:"Type",type_sunbeds:"Sunbeds / Umbrella",type_lunch:"Lunch",type_dinner:"Dinner",type_party:"Private / Birthday Party",book_date:"Date",book_people:"People",book_time:"Time",book_notes:"Notes",book_privacy:"By booking you accept our privacy policy. You’ll receive confirmation based on availability.",events_title:"Events & Private Parties",events_sub:"Birthdays, corporate dinners, beach parties with DJ and photo service. Exclusive areas on request.",events_b1:"Summer setups & lighting design",events_b2:"Custom menus & cake",events_b3:"Audio service for DJ & live",events_b4:"Boat arrival on request",events_btn:"Request a quote",contact_title:"Contact",contact_sub:"We are in Luino, right on Lake Maggiore. Join us for breakfast, lunch, aperitivo and dinner.",rights:"All rights reserved."}
+    };
+    function applyLang(lang){ document.documentElement.lang = lang==='en'?'en':'it';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); const v=dict[lang][k]; if(v){ el.innerHTML=v; } });
+      document.getElementById('langToggle').textContent = lang==='en' ? 'IT' : 'EN'; localStorage.setItem('aura_lang', lang);
+    }
+    const saved = localStorage.getItem('aura_lang') || 'it'; applyLang(saved);
+    document.getElementById('langToggle').addEventListener('click', ()=>{ const c = localStorage.getItem('aura_lang') || 'it'; applyLang(c==='it'?'en':'it'); });
+
+    // Booking actions — replace phone/email in #contatti
+    const phone = document.getElementById('phone').textContent.trim() || '+390000000000';
+    const email = document.getElementById('email').textContent.trim() || 'booking@example.com';
+    function payload(){const t=document.getElementById('type').value,d=document.getElementById('date').value,p=document.getElementById('people').value,ti=document.getElementById('time').value,n=document.getElementById('notes').value;return {t,d,p,ti,n};}
+    document.getElementById('sendWhatsApp').addEventListener('click', ()=>{
+      const {t,d,p,ti,n}=payload();
+      const msg=encodeURIComponent(`Prenotazione AURA Beach
+Tipo: ${t}
+Data: ${d}
+Orario: ${ti}
+Persone: ${p}
+Note: ${n}`);
+      window.open(`https://wa.me/${phone.replace(/[^0-9]/g,'')}?text=${msg}`,'_blank');
+    });
+    document.getElementById('sendEmail').addEventListener('click', ()=>{
+      const {t,d,p,ti,n}=payload();
+      const subject=encodeURIComponent('Prenotazione AURA Beach');
+      const body=encodeURIComponent(`Tipo: ${t}
+Data: ${d}
+Orario: ${ti}
+Persone: ${p}
+Note: ${n}`);
+      window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
+    });
+
+    // GSAP reveals
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.card').forEach((el)=>{ gsap.from(el,{opacity:0,y:24,duration:.8,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 85%'}}); });
+  </script>
+</body>
+</html>
