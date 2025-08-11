@@ -451,5 +451,61 @@
       if(window.instgrm) window.instgrm.Embeds.process(); // refresh embeds if needed
     });
   </script>
+
+  <!-- PayPal SDK (sandbox per ora) -->
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR"></script>
+<script>
+  // Config
+  const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_00000000000000"; // sostituisci col tuo link Stripe
+  const PAYPAL_AMOUNT = "35.00";
+  const phone = (document.getElementById('phone')?.textContent || '+393755875146').trim();
+  const email = (document.getElementById('email')?.textContent || 'auragroupluino@gmail.com').trim();
+
+  // Toggle pay now
+  const dobMode = document.getElementById('dob_mode');
+  const dobPay = document.getElementById('dobPay');
+  const stripeLink = document.getElementById('stripeLink');
+  if (stripeLink) stripeLink.href = STRIPE_PAYMENT_LINK;
+  if (dobMode) dobMode.addEventListener('change', ()=>{ dobPay.classList.toggle('hidden', dobMode.value !== 'paga'); });
+
+  function dobPayload(){
+    const n=document.getElementById('dob_name').value;
+    const p=document.getElementById('dob_phone').value;
+    const d=document.getElementById('dob_date').value;
+    const t=document.getElementById('dob_time').value;
+    const m=document.getElementById('dob_mode').value;
+    return {n,p,d,t,m};
+  }
+
+  // WhatsApp / Email
+  document.getElementById('dob_whatsapp')?.addEventListener('click', ()=>{
+    const {n,p,d,t,m}=dobPayload();
+    const text = encodeURIComponent(`DrinkOnBoat\nNome: ${n}\nTelefono: ${p}\nData: ${d}\nOrario: ${t}\nModalità: ${m==='paga'?'Paga subito':'Prenota e paga al ritiro'}`);
+    window.open(`https://wa.me/${phone.replace(/[^0-9]/g,'')}?text=${text}`,'_blank');
+  });
+  document.getElementById('dob_email')?.addEventListener('click', ()=>{
+    const {n,p,d,t,m}=dobPayload();
+    const subject = encodeURIComponent('DrinkOnBoat – Prenotazione');
+    const body = encodeURIComponent(`Nome: ${n}\nTelefono: ${p}\nData: ${d}\nOrario: ${t}\nModalità: ${m==='paga'?'Paga subito online':'Paga al ritiro'}\n\nTi daremo risposta a breve sulla tua prenotazione.`);
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  });
+
+  // PayPal Buttons
+  if (window.paypal && document.getElementById('paypal-buttons')) {
+    paypal.Buttons({
+      style: { shape: 'pill', layout: 'vertical' },
+      createOrder: (data, actions) => actions.order.create({
+        purchase_units: [{ amount: { value: PAYPAL_AMOUNT, currency_code:'EUR' }, description: 'DrinkOnBoat – Prosecco + 4 calici' }]
+      }),
+      onApprove: (data, actions) => actions.order.capture().then(()=>{
+        alert('Pagamento completato! Ti aspettiamo al molo all’orario indicato.');
+      })
+    }).render('#paypal-buttons');
+  }
+</script>
+
+
+
+  
 </body>
 </html>
